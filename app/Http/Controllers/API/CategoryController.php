@@ -83,9 +83,11 @@ class CategoryController extends \App\Http\Controllers\Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category): JsonResponse
+    public function show($id): JsonResponse
     {
         try {
+            $category = Category::findOrFail($id);
+
             return response()->json([
                 'success' => true,
                 'message' => 'Category retrieved successfully',
@@ -104,6 +106,7 @@ class CategoryController extends \App\Http\Controllers\Controller
             ], 500);
         }
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -161,10 +164,11 @@ class CategoryController extends \App\Http\Controllers\Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category): JsonResponse
+    public function destroy($id): JsonResponse
     {
         try {
-            // Check if category has articles
+            $category = Category::findOrFail($id);
+
             if ($category->articles()->count() > 0) {
                 return response()->json([
                     'success' => false,

@@ -86,9 +86,11 @@ class UserController extends \App\Http\Controllers\Controller
         }
     }
 
-    public function show(User $user): JsonResponse
+    public function show($id): JsonResponse
     {
         try {
+            $user = User::findOrFail($id);
+
             return response()->json([
                 'success' => true,
                 'message' => 'User retrieved successfully',
@@ -107,6 +109,7 @@ class UserController extends \App\Http\Controllers\Controller
             ], 500);
         }
     }
+
 
     public function update(Request $request, User $user): JsonResponse
     {
