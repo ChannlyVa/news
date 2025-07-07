@@ -6,9 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\ArticleController;
-use App\Http\Controllers\API\ContactController;
 use App\Http\Controllers\API\CategoryController;
-use App\Http\Controllers\API\ContactusController;
+use App\Http\Controllers\API\ContaceusController;
 
 
 Route::post('/register', [AuthController::class, 'register']);
@@ -23,13 +22,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/article/author/{authorId}', [ArticleController::class, 'getByAuthor']);
     // log categories
     Route::apiResource('/category', CategoryController::class);
-    // log contacts
-    Route::apiResource('/contact', ContactController::class);
-    // log contactus
-    Route::apiResource('/contactus', ContactusController::class);
     // log users
     Route::apiResource('/user', UserController::class);
     Route::put('/profile', [UserController::class, 'updateProfile']);
     Route::get('/user', [UserController::class, 'getCurrentUser']);
     Route::get('/users', [UserController::class, 'index']);
+    // log contactus
+    Route::apiResource('/contactus', ContaceusController::class);
 });
