@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\API;
 
 use Exception;
-use App\Models\Contaceus;
+use App\Models\Contactus;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 
-class ContaceusController extends Controller
+class ContactusController extends Controller
 {
     //
     public function index(): JsonResponse
     {
         try {
-            $contactus = Contaceus::all();
+            $contactus = Contactus::all();
             return response()->json([
                 'success' => true,
                 'message' => 'Contactus entries retrieved successfully',
@@ -29,7 +29,7 @@ class ContaceusController extends Controller
             ], 500);
         }
     }
-    public function show(Contaceus $contactus): JsonResponse
+    public function show(Contactus $contactus): JsonResponse
     {
         try {
             return response()->json([
@@ -50,7 +50,7 @@ class ContaceusController extends Controller
             ], 500);
         }
     }
-    public function destroy(Contaceus $contactus): JsonResponse
+    public function destroy(Contactus $contactus): JsonResponse
     {
         try {
             $contactus->delete();

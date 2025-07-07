@@ -7,7 +7,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\ArticleController;
 use App\Http\Controllers\API\CategoryController;
-use App\Http\Controllers\API\ContaceusController;
+use App\Http\Controllers\API\ContactusController;
 
 
 Route::post('/register', [AuthController::class, 'register']);
@@ -28,5 +28,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [UserController::class, 'getCurrentUser']);
     Route::get('/users', [UserController::class, 'index']);
     // log contactus
-    Route::apiResource('/contactus', ContaceusController::class);
+    Route::apiResource('/contactus', ContactusController::class);
 });
