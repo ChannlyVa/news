@@ -17,7 +17,16 @@ class CategoryController extends \App\Http\Controllers\Controller
     public function index(): JsonResponse
     {
         try {
-            $categories = Category::all();
+            $categories = Category::paginate(10); // 10 per page
+
+            if ($categories->isEmpty()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'No categories found',
+                    'data' => []
+                ]);
+            }
+
             return response()->json([
                 'success' => true,
                 'message' => 'Categories retrieved successfully',
@@ -31,6 +40,8 @@ class CategoryController extends \App\Http\Controllers\Controller
             ], 500);
         }
     }
+
+
 
     /**
      * Show the form for creating a new resource.

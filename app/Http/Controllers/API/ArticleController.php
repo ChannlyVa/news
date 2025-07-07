@@ -18,13 +18,14 @@ class ArticleController extends Controller
     public function index(): JsonResponse
     {
         try {
-            $articles = Article::with(['category', 'author'])->get(); // eager load relationships
+            $articles = Article::with(['category', 'author'])->paginate(10);
 
             if ($articles->isEmpty()) {
                 return response()->json([
-                    'success' => false,
-                    'message' => 'No articles found'
-                ], 404);
+                    'success' => true,
+                    'message' => 'No articles found',
+                    'data' => []
+                ]);
             }
 
             return response()->json([
@@ -40,6 +41,7 @@ class ArticleController extends Controller
             ], 500);
         }
     }
+
 
 
     /**

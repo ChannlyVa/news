@@ -16,6 +16,15 @@ class UserController extends \App\Http\Controllers\Controller
     {
         try {
             $users = User::paginate(10);
+
+            if ($users->isEmpty()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'No users found',
+                    'data' => []
+                ]);
+            }
+
             return response()->json([
                 'success' => true,
                 'message' => 'Users retrieved successfully',
@@ -29,6 +38,7 @@ class UserController extends \App\Http\Controllers\Controller
             ], 500);
         }
     }
+
 
     public function store(Request $request): JsonResponse
     {

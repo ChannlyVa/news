@@ -14,7 +14,7 @@ class ContactusController extends Controller
     public function index(): JsonResponse
     {
         try {
-            $contactus = Contactus::all();
+            $contactus = Contactus::pagenation(10);
 
             if ($contactus->isEmpty()) {
                 return response()->json([
