@@ -33,7 +33,7 @@ jobs:
         run: |
           docker push ghcr.io/channlyva/core-api:latest
 
-            - name: Copy docker-compose.yml to Server
+      - name: Copy docker-compose.yml to Server
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
