@@ -5,6 +5,8 @@ services:
         image: ghcr.io/channlyva/core-api:latest
         container_name: laravel_app
         restart: unless-stopped
+        ports:
+            - "9000:9000"
         volumes:
             - .:/var/www
         networks:
