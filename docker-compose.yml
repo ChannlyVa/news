@@ -2,9 +2,7 @@ version: "3.8"
 
 services:
     app:
-        build:
-            context: .
-            dockerfile: Dockerfile
+        image: ghcr.io/${GITHUB_REPOSITORY}/core-api:latest
         container_name: laravel_app
         restart: unless-stopped
         volumes:
