@@ -22,7 +22,7 @@ services:
         ports:
             - "80:80"
         volumes:
-            - ./news:/var/www
+            - .:/var/www
             - ./nginx.conf:/etc/nginx/conf.d/default.conf
         depends_on:
             - app
@@ -44,6 +44,11 @@ services:
             - db_data:/var/lib/mysql
         networks:
             - laravel
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
 
 volumes:
     db_data:
