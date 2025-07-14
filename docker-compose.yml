@@ -1,9 +1,9 @@
 version: "3.8"
 
 services:
-    app:
+    php:
         image: ghcr.io/channlyva/core-api:latest
-        container_name: app
+        container_name: php
         restart: unless-stopped
         ports:
             - "9000:9000"
