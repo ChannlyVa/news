@@ -19,6 +19,12 @@ services:
             DB_DATABASE: api
             DB_USERNAME: root
             DB_PASSWORD: root
+        healthcheck:
+            test: ["CMD", "php", "artisan", "migrate", "--force"]
+            interval: 30s
+            timeout: 10s
+            retries: 3
+            start_period: 10s
 
     webserver:
         image: nginx:alpine
