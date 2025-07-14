@@ -9,6 +9,11 @@ services:
             - "9000:9000"
         networks:
             - laravel
+        depends_on:
+            mysql:
+                condition: service_healthy
+        command: >
+            sh -c "php artisan migrate --force && php-fpm"
 
     webserver:
         image: nginx:alpine
