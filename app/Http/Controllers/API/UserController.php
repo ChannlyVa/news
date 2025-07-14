@@ -15,7 +15,7 @@ class UserController extends \App\Http\Controllers\Controller
     public function index(): JsonResponse
     {
         try {
-            $users = User::paginate(10);
+            $users = User::orderBy('id', 'desc')->paginate(10);
 
             if ($users->isEmpty()) {
                 return response()->json([

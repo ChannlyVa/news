@@ -1,10 +1,15 @@
+<<<<<<< HEAD
 name: Deploy Laravel Application
+=======
+name: Deploy Laravel to AWS
+>>>>>>> b4a30a9a7bc791aaf6878b12aefe26f5070cff2e
 
 on:
   push:
     branches:
       - main
 
+<<<<<<< HEAD
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -42,3 +47,52 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           source: "."
           target: "/home/ubuntu"
+=======
+# Add permissions needed for GitHub Container Registry
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker image
+        run: |
+          docker build -t ghcr.io/channlyva/core-api:latest .
+
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/channlyva/core-api:latest
+
+      - name: Copy docker-compose.yml to Server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_PRIVATE_KEY }}
+          source: "docker-compose.yml,nginx.conf"
+          target: "/home/ubuntu/news"
+
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_PRIVATE_KEY }}
+          script: |
+            cd /home/ubuntu/news
+            docker compose down --remove-orphans
+            docker compose up -d --build
+>>>>>>> b4a30a9a7bc791aaf6878b12aefe26f5070cff2e
