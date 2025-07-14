@@ -41,7 +41,6 @@ jobs:
           key: ${{ secrets.SERVER_PRIVATE_KEY }}
           script: |
             cd /home/ubuntu/news
-            git pull origin main
             cp /home/ubuntu/news/docker-compose.yml .
             docker-compose down --remove-orphans
             docker-compose up -d --build
