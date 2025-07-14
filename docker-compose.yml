@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
     app:
-        image: ghcr.io/${GITHUB_REPOSITORY}/core-api:latest
+        image: ghcr.io/channly/core-api:latest
         container_name: laravel_app
         restart: unless-stopped
         volumes:
