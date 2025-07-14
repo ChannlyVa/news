@@ -33,8 +33,8 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: api
-            MYSQL_USER: laravel
-            MYSQL_PASSWORD: root
+            MYSQL_USER: root
+            MYSQL_PASSWORD:
         ports:
             - "3306:3306"
         volumes:
