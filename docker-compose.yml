@@ -17,8 +17,6 @@ services:
         image: ghcr.io/channlyva/core-api:latest
         container_name: php
         restart: unless-stopped
-        ports:
-            - "8000:9000"
         networks:
             - laravel
         volumes:
