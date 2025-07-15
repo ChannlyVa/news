@@ -9,6 +9,8 @@ services:
             - "9000:9000"
         networks:
             - laravel
+        volumes:
+            - .:/var/www/app:delegated
         depends_on:
             mysql:
                 condition: service_healthy
@@ -20,7 +22,7 @@ services:
             DB_USERNAME: root
             DB_PASSWORD: root
         healthcheck:
-            test: ["CMD", "php", "artisan", "migrate", "--force"]
+            test: ["CMD", "php", "artisan", "--version"]
             interval: 30s
             timeout: 10s
             retries: 3
