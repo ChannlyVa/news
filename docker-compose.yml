@@ -2,12 +2,12 @@ version: "3.8"
 
 services:
     php:
-        image: composer:latest # First use composer image to install dependencies
+        image: composer:latest
         container_name: php-composer
         volumes:
             - .:/var/www/app
         working_dir: /var/www/app
-        command: composer install
+        command: composer install --ignore-platform-reqs
         networks:
             - laravel
 
