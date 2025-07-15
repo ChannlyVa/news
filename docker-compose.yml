@@ -7,7 +7,11 @@ services:
         volumes:
             - .:/var/www/app
         working_dir: /var/www/app
-        command: composer install --ignore-platform-reqs
+        command: >
+            sh -c "
+            composer install --ignore-platform-reqs --no-scripts --no-autoloader &&
+            composer dump-autoload --optimize
+            "
         networks:
             - laravel
 
@@ -24,8 +28,6 @@ services:
         depends_on:
             mysql:
                 condition: service_healthy
-            php:
-                condition: service_completed_successfully
         environment:
             DB_CONNECTION: mysql
             DB_HOST: mysql
