@@ -11,6 +11,8 @@ services:
             - .:/var/www
         networks:
             - laravel
+        depends_on:
+            - mysql
 
     webserver:
         image: nginx:alpine
