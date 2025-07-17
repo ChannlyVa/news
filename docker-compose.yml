@@ -1,18 +1,29 @@
 version: "3.8"
 
 services:
-    app:
+    php-fpm:
         image: ghcr.io/channlyva/core-api:latest
-        container_name: laravel_app
+        container_name: php-fpm
         restart: unless-stopped
-        ports:
-            - "9000:9000"
-        volumes:
-            - .:/var/www
         networks:
             - laravel
         depends_on:
-            - mysql
+            mysql:
+                condition: service_healthy
+        environment:
+            DB_CONNECTION: mysql
+            DB_HOST: mysql
+            DB_PORT: 3306
+            DB_DATABASE: api
+            DB_USERNAME: laravel
+            DB_PASSWORD: root
+        healthcheck:
+            test: ["CMD", "php", "artisan", "--version"]
+            interval: 30s
+            timeout: 10s
+            retries: 3
+            start_period: 10s
+        command: php-fpm
 
     webserver:
         image: nginx:alpine
